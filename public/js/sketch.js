@@ -82,7 +82,8 @@ function getAllSpaceshipImages() {
 function processNewFollower(eventData) {
   if (eventData.for === 'twitch_account') {
     if (eventData.type === 'follow') {
-      newFollower(eventData.message[0].from);
+      // newFollower(eventData.message[0].from);
+      newFollower(eventData.message[0].name);
     }
   }
 }
