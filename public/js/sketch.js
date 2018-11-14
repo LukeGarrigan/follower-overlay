@@ -57,11 +57,6 @@ window.draw = function() {
       clear();
     }
 
-
-
-
-
-
   }
 };
 
@@ -84,6 +79,7 @@ function processNewFollower(eventData) {
     if (eventData.type === 'follow') {
       // newFollower(eventData.message[0].from);
       newFollower(eventData.message[0].name);
+      console.log(eventData.message);
     }
   }
 }
