@@ -1,6 +1,7 @@
 const express = require('express');
 const tmi = require('tmi.js');
 const myOptions = require('./api-options');
+
 var app = express();
 var server = app.listen(1200);
 
@@ -29,7 +30,6 @@ function connectionMade(socket) {
       socket.emit('newfollower', "orangegames");
     }
   });
-
 
 }
 

@@ -9,22 +9,33 @@ let started = false;
 let spaceshipImages = [];
 let spaceships = [];
 const streamlabs = io(`https://sockets.streamlabs.com?token=${TOKEN_API}`);
+let speech;
+
+let index = 0;
 
 window.setup = function() {
   createCanvas(1920, 1080);
+  speech = new p5.Speech(voiceReady);
   streamlabs.on('event', (eventData) => {
     processNewFollower(eventData);
   });
-
   socket = io.connect("http://localhost:1200");
   getAllSpaceshipImages();
   let planetCodeheirImage = loadImage("images/planet-codeheir.png");
   planetCodeheir = new PlanetCodeheir(planetCodeheirImage);
   noLoop();
+
+  function voiceReady() {
+    console.log(speech.voices);
+  };
+
+
 };
 
 function newFollower(name) {
-  let speech = new p5.Speech();
+
+  let voices = speech.voices;
+  speech.setVoice("Google UK English Male");
   speech.speak("Welcome, to planet code heir, " + name);
 
   let spaceship = new Spaceship(random(spaceshipImages), name, planetCodeheir);
