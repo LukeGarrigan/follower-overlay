@@ -33,8 +33,6 @@ window.setup = function() {
 };
 
 function newFollower(name) {
-
-  let voices = speech.voices;
   speech.setVoice("Google UK English Male");
   speech.speak("Welcome, to planet code heir, " + name);
 

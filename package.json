@@ -1,5 +1,5 @@
 {
-  "name": "halloween-spider",
+  "name": "follower-overlay",
   "version": "1.0.0",
   "description": "Spider across screne",
   "main": "server.js",
