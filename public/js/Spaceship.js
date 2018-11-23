@@ -2,7 +2,7 @@
 
 export default class Spaceship {
 
-  constructor(image, name, earth) {
+  constructor(image, name, earth, flames) {
     this.spaceshipImage = image;
     this.pos = createVector(width, random(height));
     this.velocity = -0.12;
@@ -12,6 +12,8 @@ export default class Spaceship {
     this.radians = 0;
     this.hasFinished = false;
     this.hasFinishedTime = 0;
+    this.flames = flames;
+    this.flameIndex = 0;
   }
 
 
@@ -22,8 +24,6 @@ export default class Spaceship {
   draw() {
     this.updateSpaceshipPosition();
     push();
-
-
     translate(this.pos.x, this.pos.y);
     this.radians = atan2(this.earth.x-this.pos.x, this.earth.y-this.pos.y);
 
@@ -31,6 +31,9 @@ export default class Spaceship {
     this.displayFollowerName();
     image(this.spaceshipImage, 0, 0,this.spaceshipImage.width *1.4, this.spaceshipImage.height *1.4);
     pop();
+    this.drawFlames();
+
+
 
   }
 
@@ -57,6 +60,23 @@ export default class Spaceship {
     textAlign(LEFT);
     textSize(30);
     text(this.name, 150, 30);
+  }
+
+  drawFlames() {
+
+    push();
+    translate(this.pos.x, this.pos.y);
+    rotate(-this.radians);
+    if (this.flameIndex > 6) {
+      this.flameIndex = 0;
+    }
+    image(this.flames[this.flameIndex], 0, 0, 30, 60);
+
+    if (frameCount % 8 == 0) {
+      this.flameIndex++;
+    }
+
+    pop();
   }
 
 

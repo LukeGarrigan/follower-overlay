@@ -10,16 +10,17 @@ let spaceshipImages = [];
 let spaceships = [];
 const streamlabs = io(`https://sockets.streamlabs.com?token=${TOKEN_API}`);
 let speech;
-
-let index = 0;
+let flames = [];
 
 window.setup = function() {
   createCanvas(1920, 1080);
+
   speech = new p5.Speech(voiceReady);
   streamlabs.on('event', (eventData) => {
     processNewFollower(eventData);
   });
   socket = io.connect("http://localhost:1200");
+  loadFireImages();
   getAllSpaceshipImages();
   let planetCodeheirImage = loadImage("images/planet-codeheir.png");
   planetCodeheir = new PlanetCodeheir(planetCodeheirImage);
@@ -28,15 +29,13 @@ window.setup = function() {
   function voiceReady() {
     console.log(speech.voices);
   };
-
-
 };
 
 function newFollower(name) {
   speech.setVoice("Google UK English Male");
   speech.speak("Welcome, to planet code heir, " + name);
 
-  let spaceship = new Spaceship(random(spaceshipImages), name, planetCodeheir);
+  let spaceship = new Spaceship(random(spaceshipImages), name, planetCodeheir, flames);
   spaceships.push(spaceship);
   started = true;
   loop();
@@ -44,6 +43,8 @@ function newFollower(name) {
 }
 
 window.draw = function() {
+
+
   if (started) {
     clear();
     let haveAllShipsFinished = true;
@@ -92,3 +93,18 @@ function processNewFollower(eventData) {
     }
   }
 }
+
+
+function loadFireImages() {
+  for (let i = 1; i <= 7; i++) {
+
+    let imageUrl = "images/fire" + i + ".png";
+    flames[i - 1] = loadImage(imageUrl);
+  }
+}
+
+
+window.mousePressed = function() {
+  newFollower(" you legend");
+}
+
